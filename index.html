@@ -6,6 +6,12 @@
 <title>happy birthday, miyachka</title>
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#000000">
+<meta property="og:title" content="happy birthday, miyachka">
+<meta property="og:description" content="your table is ready">
+<meta property="og:image" content="https://adrian-erlikhman.github.io/table-for-two-7q4m/img/og.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="img/icon.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍣</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,400&family=Caveat:wght@500;700&family=DM+Mono:wght@400;500&family=Jost:wght@500;600&family=Yellowtail&display=swap" rel="stylesheet">
@@ -22,7 +28,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--night);color:#fff4e0;font-family:Fraunces,Georgia,serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 body.locked{overflow:hidden;height:100svh}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
 #sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 main{position:relative;z-index:1}
 section{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:84px 16px}
@@ -100,24 +107,24 @@ section{position:relative;min-height:100svh;display:flex;flex-direction:column;a
 .head p{color:var(--dim);font-size:17px;line-height:1.5}
 #belt{width:100vw;position:relative;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
 .slats{position:absolute;left:0;right:0;bottom:36px;height:74px;background:repeating-linear-gradient(90deg,#1d1a17 0 38px,#2c2824 38px 40px);border-top:3px solid #6b5a3a;border-bottom:3px solid #000}
-#scroller{overflow-x:auto;overflow-y:hidden;padding:30px 0 50px;position:relative;scrollbar-width:none;cursor:grab;touch-action:pan-x pan-y;overscroll-behavior-x:contain}
+#scroller{-webkit-user-select:none;user-select:none;overflow-x:auto;overflow-y:hidden;padding:30px 0 50px;position:relative;scrollbar-width:none;cursor:grab;touch-action:pan-x pan-y;overscroll-behavior-x:contain}
 #scroller::-webkit-scrollbar{display:none}
 #scroller.drag{cursor:grabbing}
 #scroller.drag .dish{pointer-events:none}
 .track{display:flex;gap:34px;width:max-content;padding-left:34px}
 .dish{position:relative;width:176px;flex:none;padding-bottom:10px;transition:transform .35s cubic-bezier(.3,1.5,.5,1)}
-.dish:hover{transform:translateY(-10px)}
+@media (hover:hover){.dish:hover{transform:translateY(-10px)}}
 .dish .plate{position:absolute;left:50%;bottom:0;width:190px;height:58px;margin-left:-95px;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#fff 0 52%,#e9e1d6 53% 60%,var(--pc,#e66a86) 61% 70%,#fff 71%);box-shadow:0 12px 18px rgba(0,0,0,.55)}
 .pola{position:relative;background:var(--cream);box-shadow:0 10px 20px rgba(0,0,0,.45)}
 .dish .pola{z-index:2;margin:0 auto 26px;width:136px;padding:7px 7px 30px;transform:rotate(var(--r))}
 .pola .img{width:100%;aspect-ratio:1;background-size:cover;background-position:center 30%;border-radius:1px;background-color:#333}
 .pola .cap{position:absolute;bottom:4px;left:0;right:0;text-align:center;color:var(--ink);font-family:Caveat,cursive;font-size:19px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 6px}
 .dish svg{position:absolute;z-index:3;bottom:4px;right:-12px;width:50px;filter:drop-shadow(0 4px 3px rgba(0,0,0,.35))}
-#lb{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.82);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .4s}
+#lb{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .4s}
 #lb.on{opacity:1;pointer-events:auto}
-#lb .pola{width:min(440px,90vw);padding:12px 12px 64px;box-shadow:0 40px 90px rgba(0,0,0,.6);transform:scale(.6) rotate(-8deg);transition:transform .6s cubic-bezier(.3,1.4,.5,1)}
+#lb .pola{width:auto;max-width:92vw;padding:12px 12px 64px;box-shadow:0 40px 90px rgba(0,0,0,.6);transform:scale(.6) rotate(-8deg);transition:transform .6s cubic-bezier(.3,1.4,.5,1)}
 #lb.on .pola{transform:scale(1) rotate(-2deg)}
-#lb .img{aspect-ratio:auto;height:min(64svh,440px);background-size:contain;background-repeat:no-repeat;background-color:#1b1b1b}
+#lb .lbimg{display:block;max-width:calc(92vw - 24px);max-height:min(62svh,520px);width:auto;height:auto;margin:0 auto;border-radius:1px}
 #lb .cap{font-size:30px;bottom:14px}
 #lb .sub{position:absolute;bottom:-38px;left:0;right:0;text-align:center;color:var(--dim)}
 
@@ -127,7 +134,8 @@ section{position:relative;min-height:100svh;display:flex;flex-direction:column;a
 .stage{position:relative;width:300px;height:370px;-webkit-tap-highlight-color:transparent}
 .box{position:absolute;left:10px;right:10px;bottom:0;height:110px;perspective:900px}
 .box .base{position:absolute;inset:0;background:var(--sc-cream);border-radius:6px;box-shadow:0 30px 50px rgba(0,0,0,.6),inset 0 -10px 0 rgba(0,0,0,.05);display:flex;align-items:flex-end;justify-content:center;padding-bottom:0;align-items:center}
-.box .base .brand{text-align:center;color:var(--sc-brown)}
+.box .base .brand{text-align:center;color:var(--sc-brown);opacity:0;transition:opacity .6s .8s}
+.stage.opened .box .base .brand{opacity:1}
 .box .base .brand b{display:block;font-family:Yellowtail,cursive;font-weight:400;font-size:38px;line-height:.9}
 .box .base .brand i{font-style:normal;font-family:Jost,sans-serif;font-weight:600;letter-spacing:.24em;font-size:9px;text-transform:uppercase}
 .lid{position:absolute;left:10px;right:10px;bottom:110px;height:130px;transform-origin:50% 100%;transition:transform 1.3s cubic-bezier(.5,-0.2,.2,1.2);z-index:5;cursor:pointer}
@@ -135,7 +143,7 @@ section{position:relative;min-height:100svh;display:flex;flex-direction:column;a
 .lid .face .brand{color:var(--sc-brown);text-align:center}
 .lid .face .brand b{display:block;font-family:Yellowtail,cursive;font-weight:400;font-size:50px;line-height:.9}
 .lid .face .brand i{font-style:normal;font-family:Jost,sans-serif;font-weight:600;letter-spacing:.24em;font-size:10px;text-transform:uppercase}
-.lid .face .tapme{position:absolute;bottom:10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--sc-brown);opacity:.8;animation:blink 1.6s infinite}
+.lid .face .tapme{position:absolute;bottom:-86px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--sc-brown);opacity:.8;animation:blink 1.6s infinite}
 @keyframes blink{50%{opacity:.25}}
 .stage.opened .lid{transform:rotateX(-100deg) translateY(-6px);pointer-events:none}
 .stage.opened .lid .face{opacity:0;transition:opacity .3s .6s}
@@ -178,16 +186,16 @@ section{position:relative;min-height:100svh;display:flex;flex-direction:column;a
 .paper .sig{font-family:Caveat,cursive;font-size:34px;text-align:right;color:#b82400;margin:0}
 
 /* ===== RECEIPT ===== */
-.receipt{width:min(330px,88vw);background:#fffdf8;color:#1a1a1a;font-family:'DM Mono',monospace;font-size:13px;line-height:1.7;padding:24px 22px 34px;position:relative;box-shadow:0 30px 60px rgba(0,0,0,.6);-webkit-mask:radial-gradient(circle 7px at 50% 100%,transparent 98%,#000) 0 0/16px 100%;mask:radial-gradient(circle 7px at 50% 100%,transparent 98%,#000) 0 0/16px 100%}
+.receipt{width:min(330px,88vw);background:#fffdf8;color:#1a1a1a;font-family:'DM Mono',monospace;font-size:13px;line-height:1.7;padding:24px 22px 84px;position:relative;box-shadow:0 30px 60px rgba(0,0,0,.6);-webkit-mask:radial-gradient(circle 7px at 50% 100%,transparent 98%,#000) 0 0/16px 100%;mask:radial-gradient(circle 7px at 50% 100%,transparent 98%,#000) 0 0/16px 100%}
 .receipt .c{text-align:center}
 .receipt .logo{width:56px;margin:0 auto 6px;background:#1a1a1a}
 .receipt .name{font-family:Anton,sans-serif;font-size:22px;letter-spacing:.02em;line-height:1.1}
 .receipt hr{border:0;border-top:1px dashed #aaa;margin:10px 0}
 .receipt .row{display:flex;justify-content:space-between;gap:10px}
 .receipt .big{font-size:18px;font-weight:500}
-.receipt .stamp{position:absolute;right:14px;bottom:62px;transform:rotate(-14deg);border:3px solid var(--red);color:var(--red);padding:4px 10px;font-family:Anton,sans-serif;font-size:17px;letter-spacing:.04em;border-radius:4px;opacity:0}
+.receipt .stamp{position:absolute;right:50%;margin-right:-62px;bottom:26px;transform:rotate(-8deg);border:3px solid var(--red);color:var(--red);padding:4px 10px;font-family:Anton,sans-serif;font-size:17px;letter-spacing:.04em;border-radius:4px;opacity:0}
 .receipt.in .stamp{animation:stamp .5s 1.4s cubic-bezier(.3,1.6,.5,1) forwards}
-@keyframes stamp{from{opacity:0;transform:rotate(-14deg) scale(2.4)}to{opacity:.9;transform:rotate(-14deg) scale(1)}}
+@keyframes stamp{from{opacity:0;transform:rotate(-8deg) scale(2.4)}to{opacity:.9;transform:rotate(-8deg) scale(1)}}
 footer{padding:40px 16px 60px;text-align:center;color:var(--dim);font-style:italic}
 .again{margin-top:14px;color:var(--gold);border-bottom:1px dashed}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
@@ -295,7 +303,7 @@ footer{padding:40px 16px 60px;text-align:center;color:var(--dim);font-style:ital
 <footer>happy birthday, miyachka ♥<br><button class="again" id="again">start over</button></footer>
 </main>
 
-<div id="lb"><div class="pola"><div class="img"></div><div class="cap"></div><div class="sub mono">tap anywhere to put it back</div></div></div>
+<div id="lb"><div class="pola"><img class="lbimg" alt=""><div class="cap"></div><div class="sub mono">tap anywhere to put it back</div></div></div>
 
 <script>
 /* ============================================================
@@ -323,11 +331,12 @@ const PHOTOS = [
   { src: "photos/billboard.jpg",  caption: "us and triple T" },
 ];
 const LETTER = {
-  greeting: "Miyachka,",
+  greeting: "Happy birthday, moya Miyachka.",
   paragraphs: [
-    "Your letter goes here. Every paragraph you write becomes its own block that fades in as she reads.",
-    "It can be as long as you want. The paper grows to fit it.",
-    "Happy birthday.",
+    "you are officialy 19 now (9 + 10)",
+    "I could fill this entire website with our memories, and that would not even scratch the surface of the multitude of reasons why I love you.",
+    "I’ve gotten to spend three birthdays with you, and I know I will spend dozens more. You’ll get a much longer note later, but for now, I just want you to know how incredibly lucky I feel to have you in my life.",
+    "Happy birthday, moya krasavita.",
   ],
   signoff: "— Adrian",
 };
@@ -352,7 +361,7 @@ const dishes=PHOTOS.map(dish).join('');
 $('#track').innerHTML=dishes+dishes;
 const lb=$('#lb');
 $('#track').addEventListener('click',e=>{const d=e.target.closest('.dish');if(!d)return;const p=PHOTOS[+d.dataset.i];
-  lb.querySelector('.img').style.backgroundImage=`url('${p.src}')`;lb.querySelector('.cap').textContent=p.caption;
+  lb.querySelector('.lbimg').src=p.src;lb.querySelector('.cap').textContent=p.caption;
   lb.classList.add('on');burst(innerWidth/2,innerHeight/2,18)});
 lb.onclick=()=>{lb.classList.remove('on')};
 /* the belt runs on its own; swipe, drag or trackpad-scroll it and it waits, then carries on */
@@ -363,12 +372,15 @@ const hold=ms=>{holdUntil=performance.now()+ms};
 sc.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;drag={x:e.clientX,left:sc.scrollLeft,moved:false};hold(2500)});
 addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;if(Math.abs(dx)>5){drag.moved=true;sc.classList.add('drag')}sc.scrollLeft=drag.left-dx;hold(2500)});
 addEventListener('pointerup',()=>{if(!drag)return;setTimeout(()=>sc.classList.remove('drag'),0);drag=null});
-(function belt(){const h=half();
+const SPEED=26;let prevT=performance.now(); // px per second
+(function belt(now){now=now||performance.now();const dt=Math.min(now-prevT,100)/1000;prevT=now;const h=half();
   if(Math.abs(sc.scrollLeft-last)>1)pos=sc.scrollLeft;
-  if(!lb.classList.contains('on')&&!drag&&performance.now()>holdUntil)pos+=.7;
-  if(h>0){if(pos>=h)pos-=h;if(pos<1&&performance.now()<holdUntil)pos+=h}
-  sc.scrollLeft=pos;last=sc.scrollLeft;
-  slats.style.backgroundPosition=`${-(last%40)}px 0`;
+  const held=lb.classList.contains('on')||drag||now<holdUntil;
+  if(!held){pos+=SPEED*dt;if(h>0&&pos>=h)pos-=h;sc.scrollLeft=pos}
+  else if(h>0){const max=sc.scrollWidth-sc.clientWidth;
+    if(sc.scrollLeft>=max-1){pos=sc.scrollLeft-h;sc.scrollLeft=pos}
+    else if(sc.scrollLeft<=0){pos=h;sc.scrollLeft=pos}}
+  last=sc.scrollLeft;slats.style.backgroundPosition=`${-(last%40)}px 0`;
   requestAnimationFrame(belt)})();
 PHOTOS.forEach(p=>{const im=new Image();im.src=p.src});
 
