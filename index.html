@@ -416,8 +416,8 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 /* dessert: open the box, then blow out the candle */
 const stage=$('#stage');let blown=false;
-/* the song (Stevie Wonder, "Happy Birthday") through Spotify's embed: load it as dessert gets close, play it when she opens the box */
-const TRACK='spotify:track:01lewSOj9ZaXplh9TpNKL4';let sp=null,wantSong=false,playing=false;
+/* the song (Crocodile Gena's birthday song from Cheburashka, sung by Vladimir Ferapontov) through Spotify's embed: load it as dessert gets close, play it when she opens the box */
+const TRACK='spotify:track:4OZZ0JNWSyEwN1ITcemVJH';let sp=null,wantSong=false,playing=false;
 function loadSpotify(){if(document.getElementById('spapi'))return;
   window.onSpotifyIframeApiReady=api=>api.createController($('#spot'),{uri:TRACK,width:'100%',height:80},c=>{sp=c;
     c.addListener('playback_update',e=>{playing=!e.data.isPaused&&e.data.position>0;if(playing)$('#song').classList.remove('blocked')});
