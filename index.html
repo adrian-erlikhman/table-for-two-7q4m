@@ -372,7 +372,7 @@ const hold=ms=>{holdUntil=performance.now()+ms};
 sc.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;drag={x:e.clientX,left:sc.scrollLeft,moved:false};hold(2500)});
 addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;if(Math.abs(dx)>5){drag.moved=true;sc.classList.add('drag')}sc.scrollLeft=drag.left-dx;hold(2500)});
 addEventListener('pointerup',()=>{if(!drag)return;setTimeout(()=>sc.classList.remove('drag'),0);drag=null});
-const SPEED=26;let prevT=performance.now(); // px per second
+const SPEED=30;let prevT=performance.now(); // px per second
 (function belt(now){now=now||performance.now();const dt=Math.min(now-prevT,100)/1000;prevT=now;const h=half();
   if(Math.abs(sc.scrollLeft-last)>1)pos=sc.scrollLeft;
   const held=lb.classList.contains('on')||drag||now<holdUntil;
