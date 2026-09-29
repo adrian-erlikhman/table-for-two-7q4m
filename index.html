@@ -295,19 +295,25 @@ footer{padding:40px 16px 60px;text-align:center;color:var(--dim);font-style:ital
    EDIT HERE: photos and the letter
    ============================================================ */
 const PHOTOS = [
-  { src: "photos/sushi.jpg",      caption: "our sushi night" },
+  { src: "photos/sushi2.jpg",     caption: "chopsticks up" },
   { src: "photos/selfie.jpg",     caption: "sunny day, us" },
   { src: "photos/cone.jpg",       caption: "ice cream face" },
+  { src: "photos/aug26.jpg",      caption: "sushi, obviously" },
   { src: "photos/kbbq.jpg",       caption: "kbbq date" },
+  { src: "photos/skate.jpg",      caption: "on ice" },
   { src: "photos/drink.jpg",      caption: "sip sip" },
+  { src: "photos/feb21.jpg",      caption: "another roll night" },
   { src: "photos/vader.jpg",      caption: "you vs. darth" },
+  { src: "photos/milkshake.jpg",  caption: "milkshakes & cards" },
   { src: "photos/pancakes.jpg",   caption: "pancake stack" },
+  { src: "photos/sep28.jpg",      caption: "black snapper $7.50" },
   { src: "photos/hike.jpg",       caption: "top of the trail" },
+  { src: "photos/tacobell.jpg",   caption: "baja blast" },
   { src: "photos/strawberry.jpg", caption: "strawberry girl" },
+  { src: "photos/kitchen.jpg",    caption: "that smile" },
   { src: "photos/strips.jpg",     caption: "photo booth" },
   { src: "photos/bike.jpg",       caption: "bike day" },
-  { src: "photos/collage.jpg",    caption: "the archives" },
-  { src: "photos/billboard.jpg",  caption: "you, lit up" },
+  { src: "photos/billboard.jpg",  caption: "you and triple tip" },
 ];
 const LETTER = {
   greeting: "Miya,",
@@ -337,7 +343,7 @@ t.innerHTML=[['happy'],['birthday,'],['Miya','name']].map(([w,cls])=>`<span clas
 const dish=(p,i)=>`<button class="dish" data-i="${i}" style="--r:${(i%2?1:-1)*(3+i%3*2)}deg;--pc:${PLATE[i%PLATE.length]}"><div class="pola"><div class="img" style="background-image:url('${p.src}')"></div><div class="cap">${esc(p.caption)}</div></div>${sushi(i)}<div class="plate"></div></button>`;
 const dishes=PHOTOS.map(dish).join('');
 $('#track').innerHTML=dishes+dishes;
-$('#track').style.setProperty('--dur',PHOTOS.length*6+'s');
+$('#track').style.setProperty('--dur',PHOTOS.length*5+'s');
 const lb=$('#lb');
 $('#track').addEventListener('click',e=>{const d=e.target.closest('.dish');if(!d)return;const p=PHOTOS[+d.dataset.i];
   lb.querySelector('.img').style.backgroundImage=`url('${p.src}')`;lb.querySelector('.cap').textContent=p.caption;
