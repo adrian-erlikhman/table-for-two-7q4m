@@ -98,12 +98,13 @@ section{position:relative;min-height:100svh;display:flex;flex-direction:column;a
 .head h2{font-size:clamp(40px,9vw,76px);line-height:1;margin:10px 0 12px;color:#fff4e0}
 .head h2 em{font-family:Fraunces,serif;text-transform:none;font-style:italic;font-weight:300;color:var(--sakura);letter-spacing:-.02em}
 .head p{color:var(--dim);font-size:17px;line-height:1.5}
-#belt{width:100vw;overflow:hidden;padding:30px 0 50px;position:relative;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
-#belt:before{content:"";position:absolute;left:0;right:0;bottom:36px;height:74px;background:repeating-linear-gradient(90deg,#1d1a17 0 38px,#2c2824 38px 40px);border-top:3px solid #6b5a3a;border-bottom:3px solid #000;animation:slats 3s linear infinite}
-@keyframes slats{to{background-position:-40px 0}}
-.track{display:flex;gap:34px;width:max-content;animation:belt var(--dur,60s) linear infinite;padding-left:34px}
-#belt:hover .track,#belt.paused .track{animation-play-state:paused}
-@keyframes belt{to{transform:translateX(-50%)}}
+#belt{width:100vw;position:relative;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.slats{position:absolute;left:0;right:0;bottom:36px;height:74px;background:repeating-linear-gradient(90deg,#1d1a17 0 38px,#2c2824 38px 40px);border-top:3px solid #6b5a3a;border-bottom:3px solid #000}
+#scroller{overflow-x:auto;overflow-y:hidden;padding:30px 0 50px;position:relative;scrollbar-width:none;cursor:grab;touch-action:pan-x pan-y;overscroll-behavior-x:contain}
+#scroller::-webkit-scrollbar{display:none}
+#scroller.drag{cursor:grabbing}
+#scroller.drag .dish{pointer-events:none}
+.track{display:flex;gap:34px;width:max-content;padding-left:34px}
 .dish{position:relative;width:176px;flex:none;padding-bottom:10px;transition:transform .35s cubic-bezier(.3,1.5,.5,1)}
 .dish:hover{transform:translateY(-10px)}
 .dish .plate{position:absolute;left:50%;bottom:0;width:190px;height:58px;margin-left:-95px;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#fff 0 52%,#e9e1d6 53% 60%,var(--pc,#e66a86) 61% 70%,#fff 71%);box-shadow:0 12px 18px rgba(0,0,0,.55)}
@@ -151,8 +152,6 @@ section{position:relative;min-height:100svh;display:flex;flex-direction:column;a
 .out .smoke:nth-of-type(4){animation-delay:.25s}
 @keyframes smoke{0%{opacity:.6}100%{opacity:0;transform:translate(-14px,-80px) scale(5)}}
 .dessert-note{margin-top:22px;color:var(--dim);font-style:italic;text-align:center;min-height:1.4em;max-width:340px;line-height:1.5}
-.mic{margin-top:10px;color:var(--gold);border-bottom:1px dashed;opacity:0;pointer-events:none;transition:opacity .5s}
-.mic.show{opacity:1;pointer-events:auto}
 
 /* ===== LETTER ===== */
 #letter{justify-content:flex-start;padding-top:12svh}
@@ -223,9 +222,9 @@ footer{padding:40px 16px 60px;text-align:center;color:var(--dim);font-style:ital
   <div class="head reveal">
     <div class="mono">tonight's menu</div>
     <h2 class="anton">the <em>Miyachka</em> omakase</h2>
-    <p>every plate is a memory. tap one to take it off the belt.</p>
+    <p>every plate is a memory. swipe the belt, or tap a plate to take it off.</p>
   </div>
-  <div id="belt" class="reveal"><div class="track" id="track"></div></div>
+  <div id="belt" class="reveal"><div class="slats" id="slats"></div><div id="scroller"><div class="track" id="track"></div></div></div>
 </section>
 
 <section id="dessert">
@@ -259,8 +258,7 @@ footer{padding:40px 16px 60px;text-align:center;color:var(--dim);font-style:ital
     </div>
     <div class="lid" id="lid"><div class="face"><div class="brand"><b>Sidecar</b><i>doughnuts &amp; coffee</i></div><div class="tapme">tap to open</div></div></div>
   </div>
-  <div class="dessert-note" id="note">huckleberry cake doughnut, huckleberry glaze, real berries</div>
-  <button class="mic mono" id="mic">or actually blow (uses mic)</button>
+  <div class="dessert-note" id="note"></div>
 </section>
 
 <section id="letter">
@@ -290,7 +288,7 @@ footer{padding:40px 16px 60px;text-align:center;color:var(--dim);font-style:ital
     <div class="row"><span>future dinners here</span><span>lots</span></div>
     <hr>
     <div class="row big"><span>TOTAL</span><span>♥</span></div>
-    <div class="c" style="margin-top:12px">thank you for being you.<br>see you at our table.</div>
+    <div class="c" style="margin-top:12px">thank you for being you.</div>
     <div class="stamp">PAID IN FULL</div>
   </div>
 </section>
@@ -352,12 +350,26 @@ t.innerHTML=[['happy'],['birthday,'],['Miyachka','name']].map(([w,cls])=>`<span 
 const dish=(p,i)=>`<button class="dish" data-i="${i}" style="--r:${(i%2?1:-1)*(3+i%3*2)}deg;--pc:${PLATE[i%PLATE.length]}"><div class="pola"><div class="img" style="background-image:url('${p.src}')"></div><div class="cap">${esc(p.caption)}</div></div>${sushi(i)}<div class="plate"></div></button>`;
 const dishes=PHOTOS.map(dish).join('');
 $('#track').innerHTML=dishes+dishes;
-$('#track').style.setProperty('--dur',PHOTOS.length*5+'s');
 const lb=$('#lb');
 $('#track').addEventListener('click',e=>{const d=e.target.closest('.dish');if(!d)return;const p=PHOTOS[+d.dataset.i];
   lb.querySelector('.img').style.backgroundImage=`url('${p.src}')`;lb.querySelector('.cap').textContent=p.caption;
-  lb.classList.add('on');$('#belt').classList.add('paused');burst(innerWidth/2,innerHeight/2,18)});
-lb.onclick=()=>{lb.classList.remove('on');$('#belt').classList.remove('paused')};
+  lb.classList.add('on');burst(innerWidth/2,innerHeight/2,18)});
+lb.onclick=()=>{lb.classList.remove('on')};
+/* the belt runs on its own; swipe, drag or trackpad-scroll it and it waits, then carries on */
+const sc=$('#scroller'),slats=$('#slats');let pos=0,last=-1,holdUntil=0,drag=null;
+const half=()=>$('#track').scrollWidth/2;
+const hold=ms=>{holdUntil=performance.now()+ms};
+['wheel','touchstart','touchmove'].forEach(ev=>sc.addEventListener(ev,()=>hold(2500),{passive:true}));
+sc.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;drag={x:e.clientX,left:sc.scrollLeft,moved:false};hold(2500)});
+addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;if(Math.abs(dx)>5){drag.moved=true;sc.classList.add('drag')}sc.scrollLeft=drag.left-dx;hold(2500)});
+addEventListener('pointerup',()=>{if(!drag)return;setTimeout(()=>sc.classList.remove('drag'),0);drag=null});
+(function belt(){const h=half();
+  if(Math.abs(sc.scrollLeft-last)>1)pos=sc.scrollLeft;
+  if(!lb.classList.contains('on')&&!drag&&performance.now()>holdUntil)pos+=.7;
+  if(h>0){if(pos>=h)pos-=h;if(pos<1&&performance.now()<holdUntil)pos+=h}
+  sc.scrollLeft=pos;last=sc.scrollLeft;
+  slats.style.backgroundPosition=`${-(last%40)}px 0`;
+  requestAnimationFrame(belt)})();
 PHOTOS.forEach(p=>{const im=new Image();im.src=p.src});
 
 /* letter + receipt */
@@ -376,19 +388,12 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 /* dessert: open the box, then blow out the candle */
 const stage=$('#stage');let blown=false;
 $('#lid').onclick=()=>{if(stage.classList.contains('opened'))return;stage.classList.add('opened');
-  setTimeout(()=>{$('#note').textContent='make a wish… then tap the candle';$('#mic').classList.add('show')},1500)};
+  setTimeout(()=>{$('#note').textContent='make a wish… then tap the candle'},1500)};
 function blow(){if(!stage.classList.contains('opened')||blown)return;blown=true;
-  $('#candle').classList.add('out');$('#note').textContent='your wish is on its way ✨';$('#mic').classList.remove('show');
+  $('#candle').classList.add('out');$('#note').textContent='your wish is on its way ✨';
   const r=$('#donut').getBoundingClientRect();burst(r.left+r.width/2,r.top,80);
   setTimeout(()=>$('#letter').scrollIntoView({behavior:'smooth'}),2400)}
 $('#donut').onclick=blow;$('#donut').onkeydown=e=>{if(e.key==='Enter'||e.key===' ')blow()};
-$('#mic').onclick=async()=>{
-  try{const s=await navigator.mediaDevices.getUserMedia({audio:true});const ac=new (window.AudioContext||window.webkitAudioContext)();
-    const an=ac.createAnalyser();an.fftSize=512;ac.createMediaStreamSource(s).connect(an);const d=new Uint8Array(an.fftSize);
-    $('#note').textContent='okay… blow! 🌬️';$('#mic').classList.remove('show');
-    let loud=0;(function chk(){an.getByteTimeDomainData(d);let m=0;for(const v of d)m=Math.max(m,Math.abs(v-128));
-      loud=m>60?loud+1:0;if(loud>6){blow();s.getTracks().forEach(t=>t.stop());ac.close();return}if(!blown)requestAnimationFrame(chk)})();
-  }catch(e){$('#note').textContent='no mic? just tap the candle'}};
 
 /* envelope */
 function openLetter(){const env=$('#env');if(env.classList.contains('open'))return;env.classList.add('open');$('#tapHint').style.opacity=0;
