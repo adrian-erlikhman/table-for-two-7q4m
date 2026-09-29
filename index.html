@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>happy birthday, miya</title>
+<title>happy birthday, miyachka</title>
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍣</text></svg>">
@@ -33,25 +33,34 @@ section{position:relative;min-height:100svh;display:flex;flex-direction:column;a
 .logo{display:block;background:var(--gold);-webkit-mask:url(img/crf-logo-mask.png) center/contain no-repeat;mask:url(img/crf-logo-mask.png) center/contain no-repeat;aspect-ratio:301/322}
 
 /* ===== DOOR ===== */
-#door{position:fixed;inset:0;z-index:100;overflow:hidden;background:radial-gradient(ellipse at 50% 28%,#241807,#000 62%);transition:opacity 1.2s 1s}
-#door.gone{opacity:0;pointer-events:none}
+#door{position:fixed;inset:0;z-index:100;overflow:hidden;background:radial-gradient(ellipse at 50% 28%,#241807,#000 62%);transform-origin:50% 72%;transition:opacity 1s ease,transform 1.3s cubic-bezier(.6,0,.3,1),filter 1s}
+#door.gone{opacity:0;transform:scale(1.45);filter:blur(6px);pointer-events:none}
+.light{position:absolute;left:50%;bottom:0;width:120vmax;height:120vmax;margin-left:-60vmax;margin-bottom:-60vmax;border-radius:50%;background:radial-gradient(circle,rgba(255,236,190,.95),rgba(255,190,90,.55) 22%,rgba(255,120,40,.18) 45%,transparent 65%);opacity:0;transform:scale(.2);pointer-events:none;z-index:1}
+#door.open .light{animation:bloom 1.6s .25s cubic-bezier(.3,0,.2,1) forwards}
+@keyframes bloom{to{opacity:1;transform:scale(1.2)}}
+#door.open .sign{animation:surge .9s ease forwards}
+@keyframes surge{0%{filter:brightness(1)}25%{filter:brightness(1.9) drop-shadow(0 0 20px #ffd23c)}100%{filter:brightness(1.2);opacity:0;transform:translateY(-50px) scale(1.06)}}
 .sign{position:absolute;top:7svh;left:0;right:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 16px}
 .sign .logo{width:clamp(96px,22vw,150px);filter:drop-shadow(0 0 10px rgba(255,210,60,.9)) drop-shadow(0 0 34px rgba(255,160,0,.55));animation:hum 4s infinite}
 .sign h1{font-size:clamp(34px,9.5vw,74px);line-height:.95;color:var(--gold);margin-top:14px;text-shadow:0 0 8px rgba(255,210,60,.6),0 0 30px rgba(255,120,0,.45);animation:hum 4s .3s infinite}
 .sign .est{color:var(--dim);margin-top:12px}
 .sign .res{margin-top:14px;display:inline-block;border:1px solid rgba(255,210,60,.4);padding:8px 12px;color:var(--gold)}
 @keyframes hum{0%,17%,21%,59%,63%,100%{opacity:1}19%,61%{opacity:.45}}
-.noren{position:absolute;left:0;right:0;bottom:0;height:44svh;display:flex;justify-content:center;pointer-events:none}
+.noren{position:absolute;left:0;right:0;bottom:0;height:44svh;display:flex;justify-content:center;pointer-events:none;perspective:800px;z-index:2}
 .rod{position:absolute;top:0;left:5%;right:5%;height:10px;background:#3b2a14;border-radius:5px;box-shadow:0 3px 8px rgba(0,0,0,.6);z-index:2}
-.panel{width:23%;max-width:140px;height:100%;margin:0 2px;background:linear-gradient(180deg,var(--red),#c42800);border-top:10px solid #3b2a14;transform-origin:top center;transition:transform 1.4s cubic-bezier(.5,0,.2,1);display:flex;align-items:flex-start;justify-content:center;padding-top:9%;box-shadow:inset 0 -40px 50px rgba(0,0,0,.28);animation:sway 5s ease-in-out infinite alternate}
+.panel{width:23%;max-width:140px;height:100%;margin:0 2px;background:linear-gradient(180deg,var(--red),#c42800);border-top:10px solid #3b2a14;transform-origin:top center;transition:transform 1.2s cubic-bezier(.45,0,.2,1),filter 1.2s;position:relative;overflow:hidden;display:flex;align-items:flex-start;justify-content:center;padding-top:9%;box-shadow:inset 0 -40px 50px rgba(0,0,0,.28);animation:sway 5s ease-in-out infinite alternate}
 .panel:nth-child(odd){animation-delay:-2.5s}
 .panel span{font-family:Anton,sans-serif;font-size:clamp(30px,8vw,52px);color:#fff4e0}
 @keyframes sway{from{transform:skewX(-1.2deg)}to{transform:skewX(1.2deg)}}
 #door.open .panel{animation:none}
-#door.open .panel:nth-child(2){transform:translateX(-70vw) rotate(-18deg)}
-#door.open .panel:nth-child(3){transform:translateX(-45vw) rotate(-10deg)}
-#door.open .panel:nth-child(4){transform:translateX(45vw) rotate(10deg)}
-#door.open .panel:nth-child(5){transform:translateX(70vw) rotate(18deg)}
+#door.open .panel{filter:brightness(1.35)}
+#door.open .panel:nth-child(3){transform:translateX(-18%) rotateY(-24deg) rotateX(72deg)}
+#door.open .panel:nth-child(4){transform:translateX(18%) rotateY(24deg) rotateX(72deg)}
+#door.open .panel:nth-child(2){transform:translateX(-40%) rotateY(-30deg) rotateX(66deg);transition-delay:.12s}
+#door.open .panel:nth-child(5){transform:translateX(40%) rotateY(30deg) rotateX(66deg);transition-delay:.12s}
+.emb{--e:clamp(96px,26vw,170px);position:absolute;top:15%;width:var(--e);height:var(--e);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 90 C20 70 4 52 4 32 C4 16 16 6 29 6 C39 6 46 12 50 20 C54 12 61 6 71 6 C84 6 96 16 96 32 C96 52 80 70 50 90Z' fill='%23fff4e0'/%3E%3Ctext x='50' y='60' text-anchor='middle' font-family='Anton,Impact,sans-serif' font-size='40' fill='%23d62a00'%3EM%3C/text%3E%3C/svg%3E") center/contain no-repeat}
+.mid.l .emb{left:calc(100% + 2px - var(--e)/2)}
+.mid.r .emb{left:calc(-2px - var(--e)/2)}
 .enter{position:absolute;left:50%;bottom:6svh;transform:translateX(-50%);z-index:3;padding:14px 30px;border-radius:999px;background:var(--red);color:#fff;font-family:Anton,sans-serif;font-size:18px;letter-spacing:.06em;box-shadow:0 10px 30px rgba(255,51,0,.45);animation:pulse 2.2s infinite}
 @keyframes pulse{50%{box-shadow:0 10px 30px rgba(255,51,0,.45),0 0 0 12px rgba(255,51,0,.12)}}
 #door.open .enter{opacity:0;transition:.4s}
@@ -193,18 +202,18 @@ footer{padding:40px 16px 60px;text-align:center;color:var(--dim);font-style:ital
     <span class="logo" role="img" aria-label="California Roll Factory"></span>
     <h1 class="anton">California Roll<br>Factory</h1>
     <div class="est mono">santa monica blvd · since 1996</div>
-    <div class="res mono">reservation: miya · party of 2 · 9/29</div>
+    <div class="res mono">reservation: miyachka · party of 2 · 9/29</div>
   </div>
   <div class="noren"><div class="rod"></div>
-    <div class="panel"><span>寿</span></div><div class="panel"><span>司</span></div><div class="panel"><span>♥</span></div><div class="panel"><span>M</span></div>
+    <div class="panel"><span>寿</span></div><div class="panel mid l"><div class="emb"></div></div><div class="panel mid r"><div class="emb"></div></div><div class="panel"><span>司</span></div>
   </div>
+  <div class="light"></div>
   <button class="enter" id="enter">COME IN</button>
 </div>
 
 <main>
 <section id="hero">
   <div class="lanterns" aria-hidden="true"><div class="lantern" style="--h:90;--s:3.1"><b></b></div><div class="lantern" style="--h:130;--s:3.7"><b></b></div><div class="lantern" style="--h:60;--s:2.9"><b></b></div><div class="lantern" style="--h:110;--s:3.4"><b></b></div></div>
-  <div class="kicker mono">your usual table is ready</div>
   <h1 id="title"></h1>
   <div class="ticket mono"><span>party of 2</span><span>order no. 29</span><span>chef's special</span></div>
   <div class="scroll-cue mono">scroll<i></i></div>
@@ -213,7 +222,7 @@ footer{padding:40px 16px 60px;text-align:center;color:var(--dim);font-style:ital
 <section id="menu">
   <div class="head reveal">
     <div class="mono">tonight's menu</div>
-    <h2 class="anton">the <em>Miya</em> omakase</h2>
+    <h2 class="anton">the <em>Miyachka</em> omakase</h2>
     <p>every plate is a memory. tap one to take it off the belt.</p>
   </div>
   <div id="belt" class="reveal"><div class="track" id="track"></div></div>
@@ -285,7 +294,7 @@ footer{padding:40px 16px 60px;text-align:center;color:var(--dim);font-style:ital
     <div class="stamp">PAID IN FULL</div>
   </div>
 </section>
-<footer>happy birthday, miya ♥<br><button class="again" id="again">start over</button></footer>
+<footer>happy birthday, miyachka ♥<br><button class="again" id="again">start over</button></footer>
 </main>
 
 <div id="lb"><div class="pola"><div class="img"></div><div class="cap"></div><div class="sub mono">tap anywhere to put it back</div></div></div>
@@ -316,7 +325,7 @@ const PHOTOS = [
   { src: "photos/billboard.jpg",  caption: "you and triple tip" },
 ];
 const LETTER = {
-  greeting: "Miya,",
+  greeting: "Miyachka,",
   paragraphs: [
     "Your letter goes here. Every paragraph you write becomes its own block that fades in as she reads.",
     "It can be as long as you want. The paper grows to fit it.",
@@ -337,7 +346,7 @@ function sushi(i){const [a,b]=FILL[i%FILL.length];
 
 /* title */
 const t=$('#title');let k=0;
-t.innerHTML=[['happy'],['birthday,'],['Miya','name']].map(([w,cls])=>`<span class="w ${cls||''}">`+[...w].map(c=>`<span class="c" style="animation-delay:${.4+(k++)*.07}s">${c}</span>`).join('')+'</span>').join(' ');
+t.innerHTML=[['happy'],['birthday,'],['Miyachka','name']].map(([w,cls])=>`<span class="w ${cls||''}">`+[...w].map(c=>`<span class="c" style="animation-delay:${.4+(k++)*.07}s">${c}</span>`).join('')+'</span>').join(' ');
 
 /* belt */
 const dish=(p,i)=>`<button class="dish" data-i="${i}" style="--r:${(i%2?1:-1)*(3+i%3*2)}deg;--pc:${PLATE[i%PLATE.length]}"><div class="pola"><div class="img" style="background-image:url('${p.src}')"></div><div class="cap">${esc(p.caption)}</div></div>${sushi(i)}<div class="plate"></div></button>`;
@@ -357,7 +366,8 @@ $('#rdate').textContent=BIRTHDAY;
 
 /* door */
 $('#enter').onclick=()=>{$('#door').classList.add('open');
-  setTimeout(()=>{$('#door').classList.add('gone');document.body.classList.remove('locked');document.body.classList.add('go');burst(innerWidth/2,innerHeight*.45,40)},900)};
+  setTimeout(()=>{$('#door').classList.add('gone');document.body.classList.remove('locked')},1150);
+  setTimeout(()=>{document.body.classList.add('go');burst(innerWidth/2,innerHeight*.45,40)},1500)};
 
 /* reveals */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.2});
