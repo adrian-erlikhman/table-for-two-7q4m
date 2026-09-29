@@ -145,6 +145,10 @@ section{position:relative;min-height:100svh;display:flex;flex-direction:column;a
 .lid .face .brand i{font-style:normal;font-family:Jost,sans-serif;font-weight:600;letter-spacing:.24em;font-size:10px;text-transform:uppercase}
 .lid .face .tapme{position:absolute;bottom:-86px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--sc-brown);opacity:.8;animation:blink 1.6s infinite}
 @keyframes blink{50%{opacity:.25}}
+.tapcue{position:absolute;left:50%;bottom:252px;transform:translateX(-50%);z-index:6;padding:9px 18px;border-radius:999px;background:var(--red);color:#fff;font-family:Anton,sans-serif;font-size:17px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;box-shadow:0 8px 24px rgba(255,51,0,.45);animation:cue 1.3s ease-in-out infinite;transition:opacity .3s}
+.tapcue span{display:inline-block;margin-left:4px}
+@keyframes cue{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-8px)}}
+.stage.opened .tapcue{opacity:0;pointer-events:none}
 .stage.opened .lid{transform:rotateX(-100deg) translateY(-6px);pointer-events:none}
 .stage.opened .lid .face{opacity:0;transition:opacity .3s .6s}
 .donut{position:absolute;left:50%;bottom:96px;width:210px;margin-left:-105px;z-index:3;transform:translateY(40px) scale(.9);opacity:0;transition:transform 1s .7s cubic-bezier(.3,1.5,.5,1),opacity .6s .7s;cursor:pointer}
@@ -264,7 +268,8 @@ footer{padding:40px 16px 60px;text-align:center;color:var(--dim);font-style:ital
         <g fill="#fff" opacity=".55"><ellipse cx="62" cy="50" rx="16" ry="5" transform="rotate(-18 62 50)"/><circle cx="47" cy="60" r="1.3"/><circle cx="149" cy="42" r="1.2"/></g>
       </svg>
     </div>
-    <div class="lid" id="lid"><div class="face"><div class="brand"><b>Sidecar</b><i>doughnuts &amp; coffee</i></div><div class="tapme">tap to open</div></div></div>
+    <button class="tapcue" id="tapcue" aria-label="open the box">tap here <span>↓</span></button>
+    <div class="lid" id="lid"><div class="face"><div class="brand"><b>Sidecar</b><i>doughnuts &amp; coffee</i></div></div></div>
   </div>
   <div class="dessert-note" id="note"></div>
 </section>
@@ -399,6 +404,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 /* dessert: open the box, then blow out the candle */
 const stage=$('#stage');let blown=false;
+$('#tapcue').onclick=()=>$('#lid').onclick();
 $('#lid').onclick=()=>{if(stage.classList.contains('opened'))return;stage.classList.add('opened');
   setTimeout(()=>{$('#note').textContent='make a wish… then tap the candle'},1500)};
 function blow(){if(!stage.classList.contains('opened')||blown)return;blown=true;
